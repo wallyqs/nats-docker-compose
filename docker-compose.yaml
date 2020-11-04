@@ -1,0 +1,68 @@
+---
+version: '3'
+services:
+  nats1.nats-a.example.net:
+    image: synadia/nats-server:nightly
+    ports:
+      - 4101:4222
+    networks:
+      - shared
+      - cluster-a
+    volumes:
+      - ./configs/natsA.conf:/nats/conf/nats-server.conf
+
+  nats2.nats-a.example.net:
+    image: synadia/nats-server:nightly
+    ports:
+      - 4102:4222
+    networks:
+      - shared
+      - cluster-a
+    volumes:
+      - ./configs/natsA.conf:/nats/conf/nats-server.conf
+
+  nats3.nats-a.example.net:
+    image: synadia/nats-server:nightly
+    ports:
+      - 4103:4222
+    networks:
+      - shared
+      - cluster-a
+    volumes:
+      - ./configs/natsA.conf:/nats/conf/nats-server.conf
+
+  # CLUSTER B of 3 servers listening on ports 4201, 4202 and 4203
+  nats1.nats-b.example.net:
+    image: synadia/nats-server:nightly
+    ports:
+      - 4201:4222
+    networks:
+      - shared
+      - cluster-b
+    volumes:
+      - ./configs/natsB.conf:/nats/conf/nats-server.conf
+
+  nats2.nats-b.example.net:
+    image: synadia/nats-server:nightly
+    ports:
+      - 4202:4222
+    networks:
+      - shared
+      - cluster-b
+    volumes:
+      - ./configs/natsB.conf:/nats/conf/nats-server.conf
+
+  nats3.nats-b.example.net:
+    image: synadia/nats-server:nightly
+    ports:
+      - 4203:4222
+    networks:
+      - shared
+      - cluster-b
+    volumes:
+      - ./configs/natsB.conf:/nats/conf/nats-server.conf
+
+networks:
+  shared: {}
+  cluster-a: {}
+  cluster-b: {}
